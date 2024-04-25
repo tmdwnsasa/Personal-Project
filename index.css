@@ -28,22 +28,43 @@ div.SearchField {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    background-color: #DEF4F2;
 }
 
 div.cardField {
     display:flex;
     justify-content: center;
-    background-color: green;
+    background-color: #DEF4F2;
 }
 
 div.cardsort {
-    width:100%;
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+img.movieimg {
+    width:100%;
+    border-radius: 15px;
+}
+
+h5.card-title {
+    border-bottom: 3px solid black;
+}
+
+p.card-overview {
+}
+
+p.card-vote {
+    border-top: 3px solid black;
 }
 
 div.card{
-    
+    width:22%;
+    text-align: center;
+    margin-top: 50px;
+    border-radius: 15px;
+    box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.5);
+    background-color: #FFE4C4;
 }
+

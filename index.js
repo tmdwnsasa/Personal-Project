@@ -32,39 +32,52 @@ class movieDatas {
     }
 
     makeCard(count) {
-        const cardid = 'card' + document.querySelector('#cards').childElementCount;
         //card div넣기
-        const div = document.createElement('div');
-        div.className = 'card' + document.querySelector('#cards').childElementCount;
-        document.querySelector('#cards').append(div);
-
-        //이미지 넣기
-        var img = document.createElement("img");
-        img.src = `https://image.tmdb.org/t/p/w500${this._poster_path}`;
-        div.appendChild(img);
-
-        //카드 배경 넣기
-        const backdiv = document.createElement('div');
-        backdiv.className = 'card-body';
-        const cardtitlediv = document.createElement('h5');
-        cardtitlediv.className = 'card-title';
-        cardtitlediv.innerText = `${this._title}`;
-        cardtitlediv.append(backdiv);
-
-        document.querySelector('#card' ).append(backdiv);
-        let temp = `
-        <div class="card">
-            <img src="https://image.tmdb.org/t/p/w500${this._poster_path}" class="card-img-top" alt="...">
+        const carddata = `
+        <div id="card"class="card">
+            <img class="movieimg" src="https://image.tmdb.org/t/p/w500${this._poster_path}">
             <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <h5 class="card-title">${this._title}</h5>
+                <p class="card-overview">${this.overview}</p>
+                <p class="card-vote">${this._vote_average}</p>
             </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">${this._title}</li>
-                <li class="list-group-item">${this._title}</li>
-                <li class="list-group-item">${this._vote_average}</li>
-            </ul>
-        </div>`
+        </div>
+        `
+
+        document.querySelector('#cards').insertAdjacentHTML('beforeend', carddata);
+
+        // const div = document.createElement('div');
+        // const cardname = 'card' + document.querySelector('#cards').childElementCount;
+        // div.className = 'card';
+        // div.id = cardname;
+        // document.querySelector('#cards').append(div);
+
+        // //이미지 넣기
+        // var img = document.createElement("img");
+        // img.src = `https://image.tmdb.org/t/p/w500${this._poster_path}`;
+        // div.appendChild(img);
+
+        // //카드 배경 넣기
+        // const backdiv = document.createElement('div');
+        // backdiv.className = 'card-body';
+
+        // const cardtitlediv = document.createElement('h5');
+        // cardtitlediv.className = 'card-title';
+        // cardtitlediv.innerText = `${this._title}`;
+        // backdiv.append(cardtitlediv);
+
+        // const cardoverviewdiv = document.createElement('p');
+        // cardoverviewdiv.className = 'card-overview';
+        // cardoverviewdiv.innerText = `${this._overview}`;
+        // backdiv.append(cardoverviewdiv);
+
+        // const cardvotediv = document.createElement('p');
+        // cardvotediv.className = 'card-vote';
+        // cardvotediv.innerText = `${this._vote_average}`;
+        // backdiv.append(cardvotediv);
+
+        // document.querySelector('#' + cardname).append(backdiv);
+        // console.log(typeof document.querySelector('#' + cardname))
     }
 }
 
@@ -76,8 +89,16 @@ const options = {
     }
 };
 
-const getData = async function () {
-    const response = await fetch('https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1', options)
+// const searchInput = document.querySelector('#input');
+// console.log(searchInput);
+
+// searchInput.addEventListener("input", (e) => {
+//     const value = e.target.value.toLowerCase();
+// });
+
+//api 받기
+const getData = async function (pages = 1) {
+    const response = await fetch(`https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=${pages}`, options)
     const data = await response.json();
 
     const movieDatasArr = [];
@@ -90,14 +111,17 @@ const getData = async function () {
 
     return movieDatasArr;
 }
-
-const print = async function () {
-    const data = await getData();
+//출력
+const print = async (pages) => {
+    const data = await getData(pages);
     data.forEach(item => {
         item.makeCard();
-        console.log(item);
     });
-
 }
 
-print();
+const movieManager = () => {
+
+    print();
+};
+
+movieManager();
