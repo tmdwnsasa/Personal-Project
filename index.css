@@ -1,0 +1,49 @@
+body {
+    background-color: #DEF4F3;
+}
+
+div.sorttocenter {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #FFE194;
+    margin: 0, 0, 0, 0;
+    padding: auto auto auto auto;
+    width:100%;
+}
+
+div.titleDiv {
+    text-align: center;
+    padding: auto auto auto auto;
+    height: 100px;
+}
+
+div.title {
+    padding: auto 0 auto 0;
+    margin: auto 0 auto 0;
+}
+
+div.SearchField {
+    border-bottom: 3px solid black;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+div.cardField {
+    display:flex;
+    justify-content: center;
+    background-color: green;
+}
+
+div.cardsort {
+    width:100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+div.card{
+    
+}
