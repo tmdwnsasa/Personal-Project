@@ -1,9 +1,10 @@
 class movieDatas {
-    constructor(title, overview, poster_path, vote_average) {
+    constructor(title, overview, poster_path, vote_average, id) {
         this._title = title;
         this._overview = overview;
         this._poster_path = poster_path;
         this._vote_average = vote_average;
+        this._id = id;
     }
 
     get title() {
@@ -30,20 +31,27 @@ class movieDatas {
     set vote_average(value) {
         this._vote_average = value;
     }
+    get id() {
+        return this._id;
+    }
+    set id(value) {
+        this._id = value;
+    }
 
     makeCard(count) {
         //card div넣기
         const carddata = `
         <div id="card"class="card">
-            <img class="movieimg" src="https://image.tmdb.org/t/p/w500${this._poster_path}">
-            <div class="card-body">
-                <h5 class="card-title">${this._title}</h5>
-                <p class="card-overview">${this.overview}</p>
-                <p class="card-vote">${this._vote_average}</p>
-            </div>
+            <button id="cardbutton${count}" class="cardbutton">
+                <img class="movieimg" src="https://image.tmdb.org/t/p/w500${this._poster_path}">
+            </button>
+                <div class="card-body">
+                    <h5 class="card-title">${this._title}</h5>
+                    <p class="card-overview">${this.overview}</p>
+                    <p class="card-vote">${this._vote_average}</p>
+                </div>
         </div>
         `
-
         document.querySelector('#cards').insertAdjacentHTML('beforeend', carddata);
 
         // const div = document.createElement('div');
@@ -89,39 +97,120 @@ const options = {
     }
 };
 
-// const searchInput = document.querySelector('#input');
-// console.log(searchInput);
+let dataSearch = [];
 
-// searchInput.addEventListener("input", (e) => {
-//     const value = e.target.value.toLowerCase();
-// });
+const search = function () {
+    const searchedWord = document.querySelector('#input').value;
+    let count = 0;
+    console.log(dataSearch);
+
+    dataSearch.forEach(item => {
+        item.forEach(item2 => {
+            let str1 = item2.title.toUpperCase();
+            let str2 = searchedWord.toUpperCase();
+            if (str1.search(str2) === -1) {
+                document.querySelector('#cards').children[count].style.display = 'none';
+            } else {
+                document.querySelector('#cards').children[count].style.display = 'block';
+            }
+            count++;
+        })
+    })
+}
+
+const namesort = function () {
+    for (let item of dataSearch) {
+        item.sort((a, b) => {
+            if (a['title'] < b['title'])
+                return -1;
+            if (a['title'] > b['title'])
+                return 1;
+            if (a['title'] === b['title'])
+                return 0;
+        });
+    }
+    let count = 0;
+
+    document.querySelector('#cards').innerHTML= '';
+    dataSearch.forEach(item => {
+        item.forEach(item2 => {
+            item2.makeCard(count);
+            count++;
+        })
+    });
+    awake();
+}
+
+const votesort = function () {
+    for (let item of dataSearch) {
+        item.sort((a, b) => {
+            if (a['vote_average'] < b['vote_average'])
+                return 1;
+            if (a['vote_average'] > b['vote_average'])
+                return -1;
+            if (a['vote_average'] === b['vote_average'])
+                return 0;
+        });
+    }
+    let count = 0;
+
+    
+    document.querySelector('#cards').innerHTML= '';
+    dataSearch.forEach(item => {
+        item.forEach(item2 => {
+            item2.makeCard(count);
+            count++;
+        })
+    });
+    awake();
+
+}
 
 //api 받기
 const getData = async function (pages = 1) {
     const response = await fetch(`https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=${pages}`, options)
     const data = await response.json();
-
     const movieDatasArr = [];
     const md = {};
 
     for (const movie of data['results']) {
-        const temp = new movieDatas(movie['title'], movie['overview'], movie['poster_path'], movie['vote_average'])
+        const temp = new movieDatas(movie['title'], movie['overview'], movie['poster_path'], movie['vote_average'], movie['id'])
         movieDatasArr.push(temp);
     }
-
+    dataSearch.push(movieDatasArr);
     return movieDatasArr;
 }
+
 //출력
 const print = async (pages) => {
-    const data = await getData(pages);
+    let data = [];
+    for (let i = 0; i < 1; i++) {
+        data.push(await getData(i + 1));
+    }
+    count = 0;
+    dataSearch[pages];
     data.forEach(item => {
-        item.makeCard();
+        item.forEach(item2 => {
+            item2.makeCard(count);
+            count++;
+        })
+    });
+
+    await awake();
+    return data;
+}
+
+const awake = async () => {
+    for (let i = 0; i < document.getElementById('cards').childElementCount; i++) {
+        document.getElementById(`cardbutton${i}`).addEventListener('click', function (event) {
+            alert(`영화 id : ${dataSearch[Math.trunc(i / 20)][i % 20]['id']}`)
+        })
+    }
+    document.getElementById("input").focus();
+    document.getElementById("input").addEventListener('keydown', event => {
+        if (event.code == 'Enter')
+            search();
     });
 }
 
-const movieManager = () => {
-
-    print();
-};
-
-movieManager();
+print();

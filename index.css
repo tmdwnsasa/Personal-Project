@@ -24,6 +24,8 @@ div.title {
 }
 
 div.SearchField {
+    height: 100px;
+    padding: auto 0 auto 0;
     border-bottom: 3px solid black;
     display: flex;
     flex-direction: row;
@@ -41,6 +43,19 @@ div.cardsort {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
+}
+
+button.cardbutton{
+    background-color: transparent;
+    border-color: transparent;
+}
+
+button.namesortbutton{
+    margin-left:auto;
+}
+
+button.namesortbutton{
+    margin-left:auto;
 }
 
 img.movieimg {
