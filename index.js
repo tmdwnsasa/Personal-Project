@@ -48,7 +48,7 @@ class movieDatas {
                 <div class="card-body">
                     <h5 class="card-title">${this._title}</h5>
                     <p class="card-overview">${this.overview}</p>
-                    <p class="card-vote">${this._vote_average}</p>
+                    <p class="card-vote">평점 : ${this._vote_average}</p>
                 </div>
         </div>
         `
@@ -131,7 +131,7 @@ const namesort = function () {
     }
     let count = 0;
 
-    document.querySelector('#cards').innerHTML= '';
+    document.querySelector('#cards').innerHTML = '';
     dataSearch.forEach(item => {
         item.forEach(item2 => {
             item2.makeCard(count);
@@ -154,13 +154,28 @@ const votesort = function () {
     }
     let count = 0;
 
-    
-    document.querySelector('#cards').innerHTML= '';
+    document.querySelector('#cards').innerHTML = '';
     dataSearch.forEach(item => {
         item.forEach(item2 => {
             item2.makeCard(count);
             count++;
         })
+    });
+    awake();
+}
+
+const vote85 = () => {
+    let datas;
+    for (let item of dataSearch) {
+        datas = item.filter((data) => data.vote_average > 8.5)
+    }
+    console.log(datas);
+    let count = 0;
+
+    document.querySelector('#cards').innerHTML = '';
+    datas.forEach(item2 => {
+        item2.makeCard(count);
+        count++;
     });
     awake();
 
