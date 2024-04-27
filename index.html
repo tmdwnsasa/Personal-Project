@@ -16,19 +16,33 @@
         <div class="titleDiv">
             <h1 class="title">내배캠 최고 평점 영화 콜렉션</h1>
         </div>
+
         <div class="SearchField">
             <div class="searchinput">
                 <input class="input" id="input" placeholder="Search" data-search>
-                <button class="searchbutton" id="searchbutton" type="button" class="btn btn-dark" onclick="search()" >검색</button>
-                <button class="namesortbutton" id="namesortbutton" type="button" class="btn btn-dark" onclick="namesort()" >이름 순 정렬</button>
-                <button class="votesortbutton" id="votesortbutton" type="button" class="btn btn-dark" onclick="votesort()" >평점 순 정렬</button>
-                <button class="vote85button" id="vote85button" type="button" class="btn btn-dark" onclick="vote85()" >평점 8.5 이상만</button>
+                <button class="searchbutton" id="searchbutton" type="button" class="btn btn-dark"
+                    onclick="search()">검색</button>
+            </div>
+            <div class="additional">
+                <button class="namesortbutton" id="namesortbutton" type="button" class="btn btn-dark"
+                    onclick="namesort()">이름 순 정렬</button>
+                <button class="votesortbutton" id="votesortbutton" type="button" class="btn btn-dark"
+                    onclick="votesort()">평점 순 정렬</button>
+                <button class="vote85button" id="vote85button" type="button" class="btn btn-dark" onclick="vote835()">검색창의 평점 이상만</button>
+                <button class="vote85button" id="vote85button" type="button" class="btn btn-dark" onclick="changeQuantity(1)">20개 씩</button>
+                <button class="vote85button" id="vote85button" type="button" class="btn btn-dark" onclick="changeQuantity(2)">40개 씩</button>
+                <button class="vote85button" id="vote85button" type="button" class="btn btn-dark" onclick="changeQuantity(4)">80개 씩</button>
             </div>
         </div>
+
         <div class="cardField">
             <div id="cards" class="cardsort">
-
             </div>
+        </div>
+
+        <div class="pageselector">
+            <button class="bflistbutton" id="bflistbutton" type="button" class="btn btn-dark" onclick="beforeList()">이전 리스트</button>
+            <button class="nextlistbutton" id="nextlistbutton" type="button" class="btn btn-dark" onclick="nextList()">다음 리스트</button>
         </div>
     </div>
 </body>

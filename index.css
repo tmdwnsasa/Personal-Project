@@ -24,19 +24,25 @@ div.title {
 }
 
 div.SearchField {
-    height: 100px;
-    padding: auto 0 auto 0;
     border-bottom: 3px solid black;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     background-color: #DEF4F2;
+}
+
+div.pageselector {
+    height: 100px;
+    background-color: DEF4F2;
+    display:flex;
+    justify-content: center;
 }
 
 div.cardField {
     display:flex;
     justify-content: center;
     background-color: #DEF4F2;
+    padding-bottom: 100px;
 }
 
 div.cardsort {
