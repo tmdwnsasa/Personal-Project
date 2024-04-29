@@ -43,6 +43,7 @@ div.cardField {
     justify-content: center;
     background-color: #DEF4F2;
     padding-bottom: 100px;
+    padding-right: 150px;
 }
 
 div.cardsort {
@@ -51,17 +52,19 @@ div.cardsort {
     flex-wrap: wrap;
 }
 
+div.additional {
+    background-color: green;
+    position: fixed;
+    display: flex;
+    right: 0;
+    top : 100;
+    margin-left: auto;
+    flex-direction: column;
+}
+
 button.cardbutton{
     background-color: transparent;
     border-color: transparent;
-}
-
-button.namesortbutton{
-    margin-left:auto;
-}
-
-button.namesortbutton{
-    margin-left:auto;
 }
 
 img.movieimg {
@@ -71,9 +74,6 @@ img.movieimg {
 
 h5.card-title {
     border-bottom: 3px solid black;
-}
-
-p.card-overview {
 }
 
 p.card-vote {

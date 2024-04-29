@@ -5,7 +5,7 @@ class movieManager {
         this._currMaxPage = 1;
         this._allData = [];
         this._dataForShow = [];
-        this._quantity = 2;
+        this._quantity = 1;
     }
 
     get currPage() {
@@ -139,7 +139,7 @@ const getData = async function (pages) {
 
 //출력
 const print = async (pages) => {
-
+    console.log(document)
     for (let i = 0; i < MM.quantity; i++) {
         await getData(pages + i);
         MM.currPage = pages + i;
@@ -164,8 +164,6 @@ const print = async (pages) => {
 
 //실행될 때 한번 실행될 코드 (이벤트 붙이기 등)
 const awake = async () => {
-
-
     //페이지 켜질 때 검색창 이벤트
     document.getElementById("input").focus();
     document.getElementById("input").addEventListener('keydown', event => {
@@ -192,6 +190,7 @@ const beforeList = function () {
         MM.currPage = MM.currPage - (MM.quantity * 2 - 1);
     }
     print(MM.currPage);
+    document.querySelector('#currPage').innerHTML = '';
     giveCardEvent();
 }
 
@@ -204,6 +203,7 @@ const nextList = function () {
         MM.currPage = MM.maxPage - MM.quantity
     }
     print(MM.currPage);
+    document.querySelector('#currPage').innerHTML = '';
     giveCardEvent();
 }
 
